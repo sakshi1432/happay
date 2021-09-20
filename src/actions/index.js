@@ -1,6 +1,6 @@
 export const incNumber = (id) =>{
     return  {
-        type: "INCREMENT",
+        type: "ADD",
         payload:id
     }
 }
