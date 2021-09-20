@@ -1,22 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaPlus, FaMinus } from 'react-icons/fa';
-import data from './Data';
-import {useSelector,useDispatch} from "react-redux";
-import { incNumber,inNumber } from '../actions/index';
+import {useSelector} from "react-redux";
+
 
 export default function Cart() {
-    const myState = useSelector((state) => state.changeTheNumber);
-    const dispatch = useDispatch();
+    
+  const  change = useSelector(state => state.change.item);
+
+ 
+
+    
     return (
         <div>
             <div className="container my-4">
                 <Link to="/" className="backToHome"><FaArrowLeft /> Back to Home</Link>
                 <h2 className="my-3">Order Summary (4 Item)</h2>
-                <div class="row gx-5 my-4">
-                    <div class="col">
-                        <div class="p-3 border bg-light table-responsive">
-                            <table class="table align-middle mytable">
+                <div className="row gx-5 my-4">
+                    <div className="col">
+                        <div className="p-3 border bg-light table-responsive">
+                            <table className="table align-middle mytable">
                                 <thead>
                                     <tr>
                                         <th scope="col" className="col-md-3">S No.</th>
@@ -25,24 +28,26 @@ export default function Cart() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        data.map((e,id) => {
-                                            return ( <tr>
-                                                 <th scope="row">{e.id}</th>
-                                                <td className="">{e.name}</td>
-                                                <td className="d-flex"><button className="btn btn-secondary mx-2" onClick = {() =>dispatch(inNumber(id))}><FaMinus/></button><button style= {{padding:"8px"}}> {myState} </button> <button className="btn btn-secondary mx-2"  onClick = {() =>dispatch(incNumber(1))}><FaPlus/></button></td>
-                                            </tr>
-                                            )
-                                        })
-                                    }
+                                     {
+                                          change.map((elem) =>{
+                                                return (
+                                                    <tr key = {elem.id} >
+                                                     <th scope="row">{elem.item}</th>
+                                                    <td className="">{elem.name}</td>
+                                                     <td className="d-flex"><button className="btn btn-secondary mx-2" ><FaMinus/></button><button style= {{padding:"8px"}}>  </button> <button className="btn btn-secondary mx-2"  ><FaPlus/></button></td>
+                                                 </tr>
+                                                )
+                                            })
+
+                                    }    
                                  
                                 </tbody>
                             </table>
                             <Link to="/" className="nav-link"> <FaPlus />Add more items</Link>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="p-3 border price-box">
+                    <div className="col">
+                        <div className="p-3 border price-box">
                             <h2>Price Details</h2>
                             <hr />
                             <div className="price-details">
