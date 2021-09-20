@@ -1,10 +1,12 @@
 import React from 'react'
-import { FaStar } from 'react-icons/fa';
 import data from './Data';
 import { useState } from 'react';
+import {useDispatch} from "react-redux";
+import { incNumber} from '../actions/index';
 
 export default function Home({ count, setCount, cart, setCart }) {
-
+  
+    const dispatch = useDispatch();
     const addToCart = () => {
         setCount(count + 1);
         setCart({
@@ -28,20 +30,21 @@ export default function Home({ count, setCount, cart, setCart }) {
                     {
                         data.map((e) => {
                             return (
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src={e.img_url} class="card-img-top" alt="..." />
-                                        <div class="card-body">
+                                <div className="col">
+                                    <div className="card h-100" key = {e.id}>
+                                        <img src={e.img_url} className="card-img-top" alt="..." />
+                                        <div className="card-body">
                                             <div className="text">
-                                                <h5 class="card-title">{e.name}</h5>
-                                                <p class="text-right">  <strike className="text-right">{e.original_price}</strike>
+                                                <h5 className="card-title">{e.name}</h5>
+                                                <p className="text-right">  <strike className="text-right">{e.original_price}</strike>
                                                     <strong >${e.final_price}</strong> </p>
                                             </div>
-                                            <p class="card-text">{e.description}</p>
+                                            <p className="card-text">{e.description}</p>
 
                                         </div>
 
                                         <button onClick={addToCart} className="mx-2 btn btn-outline-primary btn-block">Add to cart</button>
+                                        <button onClick={() =>dispatch(incNumber(e.id))} className="mx-2 btn btn-outline-primary btn-block">View cart</button>
 
                                     </div>
                                 </div>
